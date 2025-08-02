@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MoodTunes - Music Player</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">
+                <h2>🎵 MoodTunes</h2>
+            </div>
+            <button class="sidebar-toggle" id="sidebarToggle">☰</button>
+        </div>
+
+        <!-- Search Section -->
+        <div class="search-section">
+            <div class="search-container">
+                <input type="text" placeholder="Search songs, artists..." class="search-input" id="searchInput">
+                <button class="search-btn">🔍</button>
+            </div>
+        </div>
+
+        <!-- Navigation Menu -->
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="#" class="nav-item active" data-section="home">🏠 Home</a></li>
+                <li><a href="#" class="nav-item" data-section="browse">🎵 Browse</a></li>
+                <li><a href="#" class="nav-item" data-section="library">📚 Your Library</a></li>
+                <li><a href="#" class="nav-item" data-section="playlists">🎶 Playlists</a></li>
+                <li><a href="#" class="nav-item" data-section="favorites">❤️ Favorites</a></li>
+                <li><a href="#" class="nav-item" data-section="recent">🕒 Recently Played</a></li>
+            </ul>
+        </nav>
+
+        <!-- User Section -->
+        <div class="user-section">
+            <div class="user-info" id="userInfo" style="display: none;">
+                <div class="user-avatar">👤</div>
+                <div class="user-details">
+                    <h4 id="userName">User Name</h4>
+                    <p>Premium Member</p>
+                </div>
+                <button class="logout-btn" id="logoutBtn">🚪</button>
+            </div>
+            
+            <div class="auth-buttons" id="authButtons">
+                <button class="auth-btn login-btn" id="loginBtn">Login</button>
+                <button class="auth-btn signup-btn" id="signupBtn">Sign Up</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <!-- Logo -->
+        <div class="logo" id="logo">
+            <h1>🎵 MoodTunes</h1>
+        </div>
+
+        <!-- Mood Selection Screen -->
+        <div class="mood-selection" id="moodSelection">
+            <div class="container">
+                <h2>How are you feeling today?</h2>
+                <p>Choose your mood and let the music match your vibe</p>
+                
+                <div class="mood-grid">
+                    <div class="mood-card" data-mood="happy">
+                        <div class="mood-icon">😊</div>
+                        <h3>Happy</h3>
+                        <p>Upbeat & Joyful</p>
+                    </div>
+                    
+                    <div class="mood-card" data-mood="sad">
+                        <div class="mood-icon">😢</div>
+                        <h3>Sad</h3>
+                        <p>Melancholic & Deep</p>
+                    </div>
+                    
+                    <div class="mood-card" data-mood="chill">
+                        <div class="mood-icon">😌</div>
+                        <h3>Chill</h3>
+                        <p>Relaxed & Calm</p>
+                    </div>
+                    
+                    <div class="mood-card" data-mood="energetic">
+                        <div class="mood-icon">🔥</div>
+                        <h3>Energetic</h3>
+                        <p>Pumped & Active</p>
+                    </div>
+                    
+                    <div class="mood-card" data-mood="romantic">
+                        <div class="mood-icon">💕</div>
+                        <h3>Romantic</h3>
+                        <p>Love & Passion</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Music Player Screen -->
+        <div class="music-player" id="musicPlayer">
+            <div class="player-container">
+                <!-- Back Button -->
+                <button class="back-btn" id="backBtn">← Back to Moods</button>
+                
+                <!-- Current Song Display -->
+                <div class="current-song">
+                    <div class="song-artwork">
+                        <div class="artwork-placeholder" id="artwork">🎵</div>
+                    </div>
+                    <div class="song-info">
+                        <h3 id="currentSong">Select a song</h3>
+                        <p id="currentArtist">Artist</p>
+                    </div>
+                </div>
+
+                <!-- Player Controls -->
+                <div class="player-controls">
+                    <button class="control-btn" id="prevBtn">⏮️</button>
+                    <button class="control-btn play-btn" id="playBtn">▶️</button>
+                    <button class="control-btn" id="nextBtn">⏭️</button>
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="progress-container">
+                    <span class="time" id="currentTime">0:00</span>
+                    <div class="progress-bar" id="progressBar">
+                        <div class="progress" id="progress"></div>
+                    </div>
+                    <span class="time" id="totalTime">3:45</span>
+                </div>
+
+                <!-- Playlist -->
+                <div class="playlist">
+                    <h4>Playlist</h4>
+                    <div class="playlist-container" id="playlist">
+                        <!-- Songs will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div class="modal-overlay" id="loginModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Welcome Back!</h3>
+                <button class="close-btn" id="closeLoginModal">×</button>
+            </div>
+            <form class="auth-form" id="loginForm">
+                <div class="form-group">
+                    <input type="email" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" placeholder="Password" required>
+                </div>
+                <button type="submit" class="submit-btn">Login</button>
+                <p class="switch-auth">Don't have an account? <span id="switchToSignup">Sign up</span></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div class="modal-overlay" id="signupModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Join MoodTunes!</h3>
+                <button class="close-btn" id="closeSignupModal">×</button>
+            </div>
+            <form class="auth-form" id="signupForm">
+                <div class="form-group">
+                    <input type="text" placeholder="Full Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" placeholder="Password" required>
+                </div>
+                <button type="submit" class="submit-btn">Sign Up</button>
+                <p class="switch-auth">Already have an account? <span id="switchToLogin">Login</span></p>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
